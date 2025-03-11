@@ -1,38 +1,127 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_first/screen/test.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TestApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          title: const Text(
+            "My Home Page",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        body: Center(child: const MyBuilder()),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
+  }
+}
+
+class MyLearnApp extends StatelessWidget {
+  const MyLearnApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              ListTile(
+                title: Text("Home"),
+              ),
+              ListTile(
+                title: Text("Settings"),
+              ),
+            ],
+          ),
+        ),
+        body: ListView(
+          children: const [
+            BorderedImage(link: "https://picsum.photos/250?image=5"),
+            BorderedImage(link: "https://picsum.photos/250?image=3"),
+            BorderedImage(link: "https://picsum.photos/250?image=6"),
+          ],
+        ),
+        bottomNavigationBar: NavbarBottom(),
+        // persistentFooterButtons: [
+        //   Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     textDirection: TextDirection.ltr,
+        //     crossAxisAlignment: CrossAxisAlignment.end,
+        //     children: [
+        //       Column(
+        //         children: [
+        //           Icon(Icons.send),
+        //           Text("Send"),
+        //         ],
+        //       ),
+        //       Column(
+        //         children: [
+        //           Icon(Icons.save),
+        //           Text("Save"),
+        //         ],
+        //       ),
+        //       Column(
+        //         children: [
+        //           Icon(Icons.share),
+        //           Text("Share"),
+        //         ],
+        //       ),
+        //     ],
+        //   ),
+        // ]
+      ),
+    );
+  }
+}
+
+class NavbarBottom extends StatelessWidget {
+  const NavbarBottom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      fixedColor: Colors.green,
+      backgroundColor: const Color.fromARGB(255, 220, 220, 220),
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.send), label: "Send"),
+        BottomNavigationBarItem(icon: Icon(Icons.save), label: "Save"),
+        BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share")
+      ],
+    );
+  }
+}
+
+class MyBuilder extends StatelessWidget {
+  const MyBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(builder: (context) {
+      return Column(
+        children: [
+          const Text("Hello World !"),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              print('Click !');
+            },
+            child: const Text('Button'),
+          )
+        ],
+      );
+    });
   }
 }
 
@@ -123,3 +212,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class BorderedImage extends StatelessWidget {
+  final String link;
+  const BorderedImage({required this.link, super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      link,
+      scale: 1.9,
+    );
+  }
+}
+

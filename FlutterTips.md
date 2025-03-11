@@ -420,3 +420,8 @@ Hero(
   child: Image.network("https://via.placeholder.com/150"),
 )
 ```
+
+
+# Quelques ressources en Flutter
+
+[https://www.geeksforgeeks.org/flutter-edge-insets-class/](https://www.geeksforgeeks.org/flutter-edge-insets-class/)
